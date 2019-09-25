@@ -1,0 +1,8 @@
+[package]
+name = "yuck"
+version = "0.1.0"
+authors = ["Pedro Ciambra <pedrociambra@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+regex = "1"
