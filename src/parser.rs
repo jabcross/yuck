@@ -54,6 +54,8 @@ pub fn parse<'source, 'code> (
 
     println!("{:?}", nodes.iter().map(|x| x.pretty_print()).collect::<Vec<_>>());
 
+    nodes = nodes.into_iter().filter(|x| x.token_count == tokens.len()).collect();
+
     if nodes.len() == 0 {
         None
     }

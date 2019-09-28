@@ -54,15 +54,6 @@ impl <'source> PatternLexer <'source> {
 
         _self
     }
-
-    fn make_token_data(&self, id: &'source str, slice: &str) -> TokenData {
-        if id == "INT" {
-            println!("Parsing {} as int", slice);
-            return TokenData::I32(slice.parse::<i32>().unwrap());
-        }
-        TokenData::None
-    }
-
 }
 
 impl<'source> Lexer<'source> for PatternLexer<'source> {
@@ -110,9 +101,23 @@ impl<'source> Lexer<'source> for PatternLexer<'source> {
                     println!("Trying to match {} to {}", slice, regex);
                     if let Some(_match) = regex.find_at(slice, 0){
                         let token_slice = &slice[0.._match.as_str().len()];
+                        let capture = regex.captures(_match.as_str());
+                        let token_data = if let Some(_capture) = capture {
+                            if _capture.len() > 1 {
+                                let s = &_capture[1];
+                                TokenData::Text(String::from(s))
+                            }
+                            else {
+                                TokenData::None
+                            }
+                        }
+                        else {
+                            TokenData::None
+                        };
+
                         tokens.push(Node::from_token(
                             id,
-                            self.make_token_data(id, token_slice),
+                            token_data,
                             token_slice));
                         slice = &slice[token_slice.len()..];
                         offset += token_slice.len();

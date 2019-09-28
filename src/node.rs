@@ -14,7 +14,7 @@ pub struct Node<'source, 'code> {
 
 #[derive(Debug, Clone)]
 pub enum TokenData {
-    I32(i32),
+    Text(String),
     None
 }
 
@@ -22,7 +22,7 @@ impl TokenData {
     pub fn pretty_print(&self)-> String{
         match self {
             TokenData::None => String::new(),
-            TokenData::I32(x) => format!("({})",x),
+            TokenData::Text(x) => format!("({})",x),
         }
     }
 }

@@ -1,0 +1,18 @@
+file:
+st_l
+
+st_l:
+st st_l
+st
+
+st:
+LB
+assign LB
+
+assign:
+exp ASSIGN_OP exp
+
+exp:
+INT
+STRING
+ID
