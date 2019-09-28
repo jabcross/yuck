@@ -23,9 +23,9 @@ impl <'source> PatternLexer <'source> {
 
         // Add built-in tokens
 
-        _self.token_patterns.insert("LINEBREAK",
+        _self.token_patterns.insert("LB",
             TokenPattern {
-                name: String::from("LINEBREAK"),
+                name: String::from("LB"),
                 pattern: None
             }
         );
@@ -40,7 +40,7 @@ impl <'source> PatternLexer <'source> {
                 .collect::<Vec<_>>())
             .filter(|x| x.len() == 2);
 
-        for mut pair in pairs {
+        for pair in pairs {
             println!("{:?}", pair);
             let name = String::from(pair[0]);
             let regex = format!("^{}",pair[1]);
@@ -56,7 +56,7 @@ impl <'source> PatternLexer <'source> {
     }
 
     fn make_token_data(&self, id: &'source str, slice: &str) -> TokenData {
-        if id == "INTEGER" {
+        if id == "INT" {
             println!("Parsing {} as int", slice);
             return TokenData::I32(slice.parse::<i32>().unwrap());
         }
@@ -92,7 +92,7 @@ impl<'source> Lexer<'source> for PatternLexer<'source> {
 
             if &slice[0..1] == "\n" {
                 tokens.push(Node::from_token(
-                    "LINEBREAK",
+                    "LB",
                     TokenData::None,
                     &slice[0..1]
                 ));

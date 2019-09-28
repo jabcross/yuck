@@ -40,7 +40,7 @@ rule. The order of the rules in the file match their priority.
 Provide the token patterns in the following format, for instance:
 
 ```
-INTEGER	([0-9])+
+INTEGER	([0-9]+)
 ASSIGN	=
 MULTIPLY	*
 ADD	+

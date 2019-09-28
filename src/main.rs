@@ -2,56 +2,57 @@ mod traits;
 mod node;
 mod grammar;
 mod lexer;
+mod parser;
+mod misc;
 
-use crate::lexer::*;
 use crate::grammar::*;
+use crate::lexer::*;
+use crate::parser::*;
+use crate::misc::*;
 use traits::*;
 
 fn main() {
 
     let grammar_source = "
     file:
-    statement
+    st_l
 
-    statement:
-    assignment
+    st_l:
+    st st_l
+    st
 
-    assignment:
-    expression ASSIGN expression
+    st:
+    LB
+    assign LB
 
-    expression:
-    LITERAL
+    assign:
+    exp ASSIGN_OP exp
+
+    exp:
+    INT
     ";
 
     let lexer_source = "
-        INTEGER	[0-9]+
-        ASSIGN	=
+        INT	[0-9]+
+        ASSIGN_OP	=
     ";
 
-    let code = "
-        1 = 1
+    let code = "1 = 1
     ";
-
 
     let lexer = PatternLexer::from_source(lexer_source);
 
     let grammar = SimpleGrammar::from_source(grammar_source);
 
-    let type_info = TypeInfo{
-        lexer: &lexer,
-        grammar: &grammar
-    };
-
     let tokens = lexer
-        .generate_tokens(code)
-        .into_iter()
-        .filter(|x| x.id != "LINEBREAK")
-        .collect::<Vec<_>>();
+        .generate_tokens(code);
 
-    println!("{:?}",
-        tokens
-        .iter()
-        .map(|x| x.pretty_print(&type_info))
-        .collect::<Vec<_>>());
+    let tree = parse(&tokens, &grammar, false);
 
+    if let Some(tree) = tree {
+        println!("{}",tree.as_string(None));
+    }
+    else {
+        println!("failed to match.");
+    }
 }
