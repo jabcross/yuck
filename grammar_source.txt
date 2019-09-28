@@ -7,12 +7,33 @@ st
 
 st:
 LB
-assign LB
+bin_op_0 LB
 
-assign:
-exp ASSIGN_OP exp
+bin_op_0:
+bin_op_1 op_0 bin_op_1
+bin_op_1
 
-exp:
+bin_op_1:
+bin_op_2 op_1 bin_op_2
+bin_op_2
+
+bin_op_2:
+bin_op_3 op_2 bin_op_3
+bin_op_3
+
+bin_op_3:
 INT
-STRING
 ID
+STRING
+
+op_0:
+OP_ASSIGN
+
+op_1:
+OP_ADD
+OP_SUB
+
+op_2:
+OP_MUL
+OP_DIV
+

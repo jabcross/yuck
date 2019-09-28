@@ -1,5 +1,9 @@
 
 INT	([0-9]+)
-ASSIGN_OP	=
+OP_ASSIGN	=
 ID	([a-zA-Z_]\w*)
 STRING	"((?:[^"]|\\")+[^\\])"
+OP_ADD	\+
+OP_SUB	-
+OP_MUL	\*
+OP_DIV	/
