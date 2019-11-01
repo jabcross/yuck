@@ -10,15 +10,15 @@ LB
 bin_op_0 LB
 
 bin_op_0:
-bin_op_1 op_0 bin_op_1
+bin_op_1 op_0 bin_op_0
 bin_op_1
 
 bin_op_1:
-bin_op_2 op_1 bin_op_2
+bin_op_2 op_1 bin_op_1
 bin_op_2
 
 bin_op_2:
-bin_op_3 op_2 bin_op_3
+bin_op_3 op_2 bin_op_2
 bin_op_3
 
 bin_op_3:
